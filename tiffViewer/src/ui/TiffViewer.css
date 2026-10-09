@@ -1,24 +1,175 @@
-.widget-tiffviewer-clickable {
+.widget-tiffviewer {
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 100%;
+    min-height: 160px;
+    background: #f5f6f8;
+    border: 1px solid #e3e5e8;
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+.widget-tiffviewer-toolbar {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+    padding: 8px 12px;
+    background: #fff;
+    border-bottom: 1px solid #e3e5e8;
+}
+
+.widget-tiffviewer-tool {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    padding: 0;
+    border: none;
+    border-radius: 6px;
+    background: #fff;
+    color: #333;
+    cursor: pointer;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.12);
+}
+
+.widget-tiffviewer-tool:hover:not(:disabled) {
+    background: #f0f2f5;
+}
+
+.widget-tiffviewer-tool:disabled {
+    cursor: not-allowed;
+    opacity: 0.45;
+    box-shadow: none;
+}
+
+.widget-tiffviewer-area {
+    position: relative;
+    flex: 1 1 auto;
+    min-height: 0;
+}
+
+.widget-tiffviewer-stage {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    overflow: auto;
+    padding: 16px;
+    box-sizing: border-box;
+}
+
+.widget-tiffviewer-page-holder {
+    display: flex;
+    margin: auto;
+}
+
+.widget-tiffviewer-page {
+    display: block;
+    flex: none;
+    background: #fff;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.widget-tiffviewer-message {
+    padding: 4px 0 12px;
+}
+
+.widget-tiffviewer-error {
+    color: #c00;
+}
+
+.widget-tiffviewer-pager {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    padding: 10px 12px;
+    background: #fff;
+}
+
+.widget-tiffviewer-pager-bottom {
+    border-top: 1px solid #e3e5e8;
+}
+
+.widget-tiffviewer-pager-top {
+    border-bottom: 1px solid #e3e5e8;
+}
+
+.widget-tiffviewer-page-button,
+.widget-tiffviewer-arrow {
+    padding: 6px 20px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    color: #fff;
+    font-weight: 500;
     cursor: pointer;
 }
 
-.widget-tiffviewer {
-    display: inline-block;
+.widget-tiffviewer-page-button:hover:not(:disabled),
+.widget-tiffviewer-arrow:hover:not(:disabled) {
+    opacity: 0.85;
 }
 
-.widget-tiffviewer.badge:empty {
-    display: initial;
-    /* Fix padding to stay round */
-    padding: 3px 10px;
+.widget-tiffviewer-page-button:disabled,
+.widget-tiffviewer-arrow:disabled {
+    background-color: #ccc !important;
+    border-color: #ccc !important;
+    cursor: not-allowed;
 }
 
-.widget-tiffviewer.label:empty {
-    display: initial;
-    /* Fix padding to stay square */
-    padding: .2em .8em .3em;
+.widget-tiffviewer-page-number {
+    min-width: 110px;
+    text-align: center;
+    color: #555;
+    font-weight: 500;
 }
 
-.widget-tiffviewer.badge {
-    min-width: 18px;
-    min-height: 18px;
+.widget-tiffviewer-arrow {
+    position: absolute;
+    top: 50%;
+    z-index: 2;
+    transform: translateY(-50%);
+    padding: 8px 14px;
+}
+
+.widget-tiffviewer-arrow-previous {
+    left: 12px;
+}
+
+.widget-tiffviewer-arrow-next {
+    right: 12px;
+}
+
+.widget-tiffviewer-page-badge {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    z-index: 2;
+    transform: translateX(-50%);
+    padding: 2px 10px;
+    border-radius: 999px;
+    background: rgba(0, 0, 0, 0.55);
+    color: #fff;
+    font-size: 12px;
+    white-space: nowrap;
+}
+
+.widget-tiffviewer-preview {
+    display: flex;
+    flex: 1;
+    align-items: center;
+    justify-content: center;
+    color: #666;
+}
+
+@media print {
+    .widget-tiffviewer-toolbar,
+    .widget-tiffviewer-pager,
+    .widget-tiffviewer-arrow,
+    .widget-tiffviewer-page-badge {
+        display: none;
+    }
 }

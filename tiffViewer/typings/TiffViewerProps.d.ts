@@ -12,11 +12,12 @@ export interface TiffViewerContainerProps {
     style?: CSSProperties;
     tabIndex?: number;
     bgImageKey: DynamicValue<WebImage>;
-    languageKey?: EditableValue<string>;
+    heightKey: string;
     paginateKey?: EditableValue<string>;
     buttonColorKey?: EditableValue<string>;
-    printableKey?: EditableValue<boolean>;
+    languageKey?: EditableValue<string>;
     zoomableKey?: EditableValue<boolean>;
+    printableKey?: EditableValue<boolean>;
 }
 
 export interface TiffViewerPreviewProps {
@@ -28,12 +29,12 @@ export interface TiffViewerPreviewProps {
     style: string;
     styleObject?: CSSProperties;
     readOnly: boolean;
-    renderMode: "design" | "xray" | "structure";
-    translate: (text: string) => string;
-    bgImageKey: { type: "static"; imageUrl: string; } | { type: "dynamic"; entity: string; } | null;
-    languageKey: string;
+    renderMode?: "design" | "xray" | "structure";
+    bgImageKey: { type: "static"; imageUrl: string } | { type: "dynamic"; entity: string } | null;
+    heightKey: string;
     paginateKey: string;
     buttonColorKey: string;
-    printableKey: string;
+    languageKey: string;
     zoomableKey: string;
+    printableKey: string;
 }

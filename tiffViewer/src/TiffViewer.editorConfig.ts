@@ -136,5 +136,5 @@ export function getProperties(
 // }
 
 // export function getCustomCaption(values: TiffViewerPreviewProps, platform: Platform): string {
-//     return "TiffViewer";
+//     return "TIFF Viewer";
 // }

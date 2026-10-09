@@ -1,31 +1,25 @@
 import { ReactElement, createElement } from "react";
+import classNames from "classnames";
 
-import { TiffViewerInput, TiffViewerProps } from "./components/TiffViewerInput";
 import { TiffViewerPreviewProps } from "../typings/TiffViewerProps";
 
-function parentInline(node?: HTMLElement | null): void {
-    // Temporary fix, the web modeler add a containing div, to render inline we need to change it.
-    if (node && node.parentElement && node.parentElement.parentElement) {
-        node.parentElement.parentElement.style.display = "inline-block";
-    }
-}
-
-function transformProps(props: TiffViewerPreviewProps): TiffViewerProps {
-    return {
-        tiffvalueURI:props.bgImageKey?.type||'',
-        buttonColor:props.buttonColorKey,
-        lang:'en',
-        paginate:'bottom',
-        printable:props.printableKey?.toString()==='true',
-        zoomable:props.zoomableKey?.toString()==='true'
-       
-    };
-}
-
+// Design mode cannot load the file (a dynamic image is only known at run time), so it shows a placeholder.
 export function preview(props: TiffViewerPreviewProps): ReactElement {
+    const source =
+        props.bgImageKey?.type === "dynamic"
+            ? `dynamic image of ${props.bgImageKey.entity}`
+            : props.bgImageKey?.type === "static"
+            ? "static image"
+            : "(no image selected)";
     return (
-        <div ref={parentInline}>
-            <TiffViewerInput {...transformProps(props)}></TiffViewerInput>
+        <div className={classNames("widget-tiffviewer", props.class)} style={{ height: 200, ...props.styleObject }}>
+            <div className="widget-tiffviewer-toolbar">
+                <span>Zoom · Print</span>
+            </div>
+            <div className="widget-tiffviewer-preview">TIFF Viewer: {source}</div>
+            <div className="widget-tiffviewer-pager widget-tiffviewer-pager-bottom">
+                <span>Previous · Page 1 of n · Next</span>
+            </div>
         </div>
     );
 }

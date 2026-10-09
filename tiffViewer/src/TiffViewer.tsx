@@ -1,57 +1,36 @@
 import { ReactElement, createElement } from "react";
 
 import { TiffViewerContainerProps } from "../typings/TiffViewerProps";
-import { TiffViewerInput } from "./components/TiffViewerInput";
+import { TiffViewerInput, toLanguage, toPaginate } from "./components/TiffViewerInput";
 import "./ui/TiffViewer.css";
 
-const allowedLangs = ["en", "de", "fr", "es", "tr"] as const;
-const allowedPaginate = ["top", "bottom"] as const;
+const DEFAULT_HEIGHT = "600px";
+const DEFAULT_BUTTON_COLOR = "#c53030";
+
+// "600" is read as "600px"; anything else is passed to CSS as it is. Empty values use the default height.
+export function toCssSize(value: string | undefined): string {
+    const size = value?.trim();
+    if (!size) {
+        return DEFAULT_HEIGHT;
+    }
+    return /^\d+(\.\d+)?$/.test(size) ? `${size}px` : size;
+}
 
 export function TiffViewer(props: TiffViewerContainerProps): ReactElement {
-    const { bgImageKey,buttonColorKey,languageKey,paginateKey,printableKey,zoomableKey } = props;
-   // console.info('layer:::'+name,bgImageKey,buttonColorKey,languageKey,paginateKey,printableKey,zoomableKey,);
-    //console.info('layer tiifuri:'+bgImageKey.value?.uri);
-    let tiffURI=(bgImageKey.value?.uri) ? stripExtraParams(bgImageKey.value?.uri) : undefined;
-   
-    let lang = toLang(languageKey?.displayValue || 'en');
-    let paginate = toPaginate(paginateKey?.displayValue||'bottom') ;
+    const { bgImageKey, heightKey, languageKey, paginateKey, buttonColorKey, printableKey, zoomableKey } = props;
+
     return (
         <TiffViewerInput
-            
-            tiffvalueURI={ tiffURI|| ''}
-            lang={lang}
-            buttonColor={buttonColorKey?.displayValue||''}
-            paginate={ paginate}
-            printable={printableKey?.value}
-            zoomable={zoomableKey?.value}
+            className={props.class}
+            style={props.style}
+            tiffvalueURI={bgImageKey.status === "available" ? bgImageKey.value?.uri ?? "" : ""}
+            height={toCssSize(heightKey)}
+            lang={toLanguage(languageKey?.value)}
+            paginate={toPaginate(paginateKey?.value)}
+            buttonColor={buttonColorKey?.value?.trim() || DEFAULT_BUTTON_COLOR}
+            // No attribute selected: the buttons are shown, as in 1.0.0.
+            printable={printableKey ? printableKey.value === true : true}
+            zoomable={zoomableKey ? zoomableKey.value === true : true}
         />
     );
-
-function stripExtraParams(url: string): string {
-    try {
-        const parsedUrl = new URL(url);
-        const guid = parsedUrl.searchParams.get("guid");
-        if (guid) {
-            return `${parsedUrl.origin}${parsedUrl.pathname}?guid=${guid}`;
-        }
-    } catch (e) {
-        console.warn("Invalid TIFF URL:", url);
-    }
-    return url; // fallback
-}
-
-
-type LangType = (typeof allowedLangs)[number];
-type PaginateType = (typeof allowedPaginate)[number];
-
-// Converts input string to LangType if valid
-function toLang(value: string | undefined): LangType | undefined {
-    return allowedLangs.includes(value as LangType) ? (value as LangType) : undefined;
-}
-
-// Converts input string to PaginateType if valid
-function toPaginate(value: string | undefined): PaginateType | undefined {
-    return allowedPaginate.includes(value as PaginateType) ? (value as PaginateType) : undefined;
-}
-
 }

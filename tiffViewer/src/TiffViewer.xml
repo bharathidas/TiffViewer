@@ -1,56 +1,91 @@
-<?xml version="1.0" encoding="utf-8"?>
-<widget id="mxtechies.tiffviewer.TiffViewer" pluginWidget="true" needsEntityContext="true" offlineCapable="true"
-        supportedPlatform="Web"
-        xmlns="http://www.mendix.com/widget/1.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xsi:schemaLocation="http://www.mendix.com/widget/1.0/ ../node_modules/mendix/custom_widget.xsd">
-    <name>Tiff Viewer</name>
-    <description>My widget description</description>
+<?xml version="1.0" encoding="utf-8" ?>
+<widget
+    id="mxtechies.tiffviewer.TiffViewer"
+    pluginWidget="true"
+    needsEntityContext="true"
+    offlineCapable="true"
+    supportedPlatform="Web"
+    xmlns="http://www.mendix.com/widget/1.0/"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.mendix.com/widget/1.0/ ../node_modules/mendix/custom_widget.xsd"
+>
+    <name>TIFF Viewer</name>
+    <description>Shows a single or multi-page TIFF image page by page, with page buttons, zoom and print.</description>
+    <studioProCategory>Display</studioProCategory>
     <icon>
         iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAMAAACdt4HsAAABp1BMVEUAAABV//9mzP9LtP9Ms/9Jtv9NsvdJsfpLtPpJsfdJsfhJsvhJsvdKsvdJsPhKsPhJsfdJsPhJsfdIsfhJsfdIsPdJsfhJsfhJsPhJsPhIsfhIsPdJsPdKsPdKsfdNsvdOsvdPs/dQs/dRtPdStPdTtPdUtfdWtvdXtvdauPdcuPdeufdeufhguvhiu/hju/hkvPhmvfhnvfhpvvhrv/huwPhvwfhxwfhywvhzwvh4xfl5xfl6xfl8xvl9xvl9x/mByPmCyfmFyvmGyvmJzPmKzPmLzfmNzvqPzvqQz/qT0PqU0PqU0fqX0vqY0vqa0/qe1fqg1vqj1/uk1/un2fup2vut2/uv3Puw3Puw3fuz3vu13/u23/u34Pu44Pu64fu64fy84vy94vy+4/y/4/zD5fzE5fzG5vzH5vzI5/zK6PzL6PzR6/zT7P3U7P3V7f3W7f3Y7v3Z7v3c8P3e8f3f8f3g8f3i8v3l8/3l9P3n9P3r9v7t9/7u9/7v+P7w+P7x+f7y+f70+v71+v74/P75/P76/f77/f78/f78/v79/v7+/v7////6dMsRAAAAG3RSTlMAAwURGxwhMTNic3SEh4iVp7XBzejt7vH5/f6PsMNWAAABsklEQVR4AWIYfGAUjIJRMAqYuYREJKWJAqLCPGwY+jnFpEkBEryMqPr5pEkFgkwo9kuTDviR/S9GhgFSHAgDuKXJAQIIA4TIMkAcEY4i0mQBVrgBkuQZwA43QJo8wIFhQEhEOIBQOutHJozDOP5Crp4e1RhkJ0tKGJFd6oNEdtmJyEIzpaZl5nrRZgaHM/2Pf5/vwXXfyagXgG93bwSAlEolowLMm9w83gibhXH2gKKVdD67gTnWjwCk+VVjMQS4suSnnjMLRVFc9sAHvAX2A9fySaXNBMbEZVUWscaHIMRuqwBgD8hDEbnsRmfjUKJkAQZGCTlO/xWBwIADQLIZBlY441MvfoF1xlFS/4fy+bzXKh4dgNJE7L3eh3tmtuWa+AMcMIY3dgUvZQpGEYmMw2kD7HC+R29UqyoXLaBd0QZxzgXgikLLDSqJTKU5HOcS0MsbA9jPqtwCRvXm2eorBbNIJBw3KJ9O4Yl+AAXdnyaLt7PWN3jRWLvzmAVp94zO5+n41/onfo/UpExxZqI0O7NQr0DhIq9Io7hQpbRYp7hiobRqo6ByFcNWuY6CUTAKRgEAo8X0lBD3V30AAAAASUVORK5CYII=
     </icon>
     <properties>
         <propertyGroup caption="General">
-            
-        <property key="bgImageKey" type="image" required="true">
-	        <caption>Background Image</caption>
-	        <description>TIFF file</description>
-        </property>
-         <property key="languageKey" type="attribute" required="false">
-                <caption>Lang</caption>
-                <description>Language code (e.g., en, de, fr, es, tr). Default is en</description>
-                <attributeTypes>
-                    <attributeType name="String"/>
-                </attributeTypes>
-            </property>
-            <property key="paginateKey" type="attribute" required="false">
-                <caption>paginate</caption>
-                <description>bottom or ltr. Default is bottom</description>
-                <attributeTypes>
-                    <attributeType name="String"/>
-                </attributeTypes>
-            </property>
-            <property key="buttonColorKey" type="attribute" required="false">
-                <caption>Button Color</caption>
-                <description>Hex color string (e.g. #c53030)</description>
-                <attributeTypes>
-                    <attributeType name="String"/>
-                </attributeTypes>
-            </property>
-            <property key="printableKey" type="attribute" required="false">
-                <caption>Printable</caption>
-                <description>true or false.</description>
-                <attributeTypes>
-                    <attributeType name="Boolean"/>
-                </attributeTypes>
-            </property>
-            <property key="zoomableKey" type="attribute" required="false">
-                <caption>Zoomable</caption>
-                <description>true or false.</description>
-                <attributeTypes>
-                    <attributeType name="Boolean"/>
-                </attributeTypes>
-            </property>
-     </propertyGroup>
-
+            <propertyGroup caption="Image">
+                <property key="bgImageKey" type="image" required="true">
+                    <caption>TIFF image</caption>
+                    <description>
+                        The TIFF file: a dynamic image (an object of System.Image or a specialization, from the data
+                        view) or a static image.
+                    </description>
+                </property>
+            </propertyGroup>
+            <propertyGroup caption="Display">
+                <property key="heightKey" type="string" required="false" defaultValue="600px">
+                    <caption>Height</caption>
+                    <description>
+                        CSS height of the viewer, for example 600px, 80vh or 30rem. A number without a unit is read as
+                        pixels. Empty: 600px. The width is always the width of the container.
+                    </description>
+                </property>
+                <property key="paginateKey" type="attribute" required="false">
+                    <caption>Page buttons</caption>
+                    <description>
+                        String attribute: bottom (Previous and Next below the page), top (above the page) or ltr (arrows
+                        left and right of the page). Empty or unknown: bottom. The buttons are shown for files with more
+                        than one page.
+                    </description>
+                    <attributeTypes>
+                        <attributeType name="String" />
+                    </attributeTypes>
+                </property>
+                <property key="buttonColorKey" type="attribute" required="false">
+                    <caption>Button color</caption>
+                    <description>
+                        String attribute with a CSS color for the page buttons, for example #c53030. Empty: #c53030.
+                    </description>
+                    <attributeTypes>
+                        <attributeType name="String" />
+                    </attributeTypes>
+                </property>
+                <property key="languageKey" type="attribute" required="false">
+                    <caption>Language</caption>
+                    <description>
+                        String attribute with the language of the page buttons: en, de, fr, es, tr, ja, zh, ru, ar or hi
+                        (en-US is read as en). Empty or unknown: en.
+                    </description>
+                    <attributeTypes>
+                        <attributeType name="String" />
+                    </attributeTypes>
+                </property>
+            </propertyGroup>
+            <propertyGroup caption="Buttons">
+                <property key="zoomableKey" type="attribute" required="false">
+                    <caption>Show zoom buttons</caption>
+                    <description>
+                        Boolean attribute. When no attribute is selected, the Zoom in and Zoom out buttons are shown.
+                    </description>
+                    <attributeTypes>
+                        <attributeType name="Boolean" />
+                    </attributeTypes>
+                </property>
+                <property key="printableKey" type="attribute" required="false">
+                    <caption>Show print button</caption>
+                    <description>
+                        Boolean attribute. When no attribute is selected, the Print button is shown. Print prints all
+                        pages of the TIFF file.
+                    </description>
+                    <attributeTypes>
+                        <attributeType name="Boolean" />
+                    </attributeTypes>
+                </property>
+            </propertyGroup>
+        </propertyGroup>
     </properties>
 </widget>
